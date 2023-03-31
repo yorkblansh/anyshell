@@ -5,6 +5,6 @@ services:
     container_name: some-service
     build:
       context: .
-    # tty: true
-    # stdin_open: true
-    # restart: on-failure
+    tty: true
+    stdin_open: true
+    restart: on-failure
