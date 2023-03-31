@@ -33,13 +33,12 @@ export const App = () => {
 	return (
 		<>
 			<Text>
-				{chalk.hex('#ff0055').italic.bgWhiteBright(' cliper ')} Приложение для
-				запуска скриптов
+				{chalk.hex('#ff0055').italic.bgWhiteBright(' anyshell ')} cli app to run
+				your scripts
 			</Text>
 			<Text> </Text>
 			<Text>
-				{chalk.bgBlue(' INFO ')} Стрелками update tst вверх и вниз выберите
-				приложение для запуска
+				{chalk.bgBlue(' INFO ')} use up and down arrows to select script
 			</Text>
 			{isLoading ? (
 				<Text>
@@ -79,7 +78,6 @@ export const App = () => {
 					itemComponent={({ isSelected, label }) =>
 						isSelected ? (
 							<Text color="#ff5eea">
-								{' '}
 								{label} {percent === 100 || percent === 0 ? null : percent}
 								{/* {percent !== 0 ? percent : percent === 100 ? null : percent} */}
 							</Text>
