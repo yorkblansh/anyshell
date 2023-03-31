@@ -1,0 +1,74 @@
+{
+	"name": "test-anyshell",
+	"version": "0.2.60",
+	"bin": "./dist/index.js",
+	"type": "module",
+	"repository": {
+		"url": "https://github.com/yorkblansh/test-anyshell"
+	},
+	"engines": {
+		"node": ">=16"
+	},
+	"scripts": {
+		"build-vite": "vite build && chmod +x dist/index.js",
+		"build-bundle": "browserify -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] ]  | terser > dist/bundle.js",
+		"build": "tsc && chmod +x dist/index.js",
+		"start": "node ./dist/index.js",
+		"pretest": "npm run build",
+		"test": "xo && ava"
+	},
+	"browserify": {
+		"transform": [
+			[
+				"babelify",
+				{
+					"presets": [
+						"@babel/preset-env"
+					]
+				}
+			]
+		]
+	},
+	"dependencies": {
+		"@types/node": "^18.15.5",
+		"chalk-animation": "^2.0.3",
+		"esbuild": "^0.17.12",
+		"figures": "^5.0.0",
+		"fp-ts": "^2.13.1",
+		"ink": "^4.0.0",
+		"ink-select-input": "^5.0.0",
+		"ink-spinner": "^5.0.0",
+		"lodash": "^4.17.21",
+		"react": "^18.2.0",
+		"shelljs": "^0.8.5",
+		"yaml": "^2.2.1"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.21.3",
+		"@babel/preset-env": "^7.20.2",
+		"@babel/preset-react": "^7.18.6",
+		"@sindresorhus/tsconfig": "^3.0.1",
+		"@swc/core": "^1.3.41",
+		"@types/chalk-animation": "^1.6.1",
+		"@types/ink-spinner": "^3.0.1",
+		"@types/lodash": "^4.14.191",
+		"@types/react": "^18.0.28",
+		"@types/shelljs": "^0.8.11",
+		"@typescript-eslint/eslint-plugin": "latest",
+		"@typescript-eslint/parser": "latest",
+		"@vitejs/plugin-react": "^3.1.0",
+		"babelify": "^10.0.0",
+		"chalk": "^5.2.0",
+		"eslint": "latest",
+		"eslint-config-xo-react": "^0.27.0",
+		"eslint-plugin-react": "latest",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"ink-testing-library": "^3.0.0",
+		"tsify": "^5.0.4",
+		"typescript": "^5.0.2",
+		"vite": "^4.2.1",
+		"vite-plugin-node": "^3.0.2",
+		"vite-plugin-singlefile": "^0.13.3"
+	},
+	"packageManager": "yarn@3.5.0"
+}
