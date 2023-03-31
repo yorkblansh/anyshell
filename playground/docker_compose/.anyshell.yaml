@@ -1,0 +1,7 @@
+commandList:
+  docker_start:
+    shellCommand: 'docker compose up --build -d'
+    setup: 'docker_compose'
+  another_command:
+    shellCommand: 'docker ps'
+    # setup: "docker_compose"
