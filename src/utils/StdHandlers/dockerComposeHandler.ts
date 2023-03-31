@@ -1,5 +1,3 @@
-import { ChildProcess } from 'child_process'
-// import { DockerComposeExecutorCallbackProps } from '../../interfaces/ExecutorCallbackProps.interface.js'
 import { StdHandler } from '../../interfaces/StdHandler.interface.js'
 import _ from 'lodash'
 
@@ -17,18 +15,16 @@ export interface DockerComposeExecutorCallbackProps {
 	dockerComposePercent?: number
 }
 
-export const dockerComposeHandler: StdHandler = (childProcess, cb) => {
+export const dockerComposeHandler: StdHandler = (childProcess, callback) => {
 	const containersInfo = new Map<string, ContainerBuildStepInfo>()
 
-	console.log('docker_compose !!!')
 	childProcess.on('close', (code, signal) => {
-		// console.log({ exitCode: code, isDone: code === 0 ? true : false })
-		if (code !== null) cb({ exitCode: code })
+		if (code !== null) callback({ exitCode: code })
 	})
 	childProcess.stdout?.on('data', (chunk) => {
 		const stepList = containersBuildStepList(chunk)
 		const percents = getDockerComposeProcessPercents(stepList, containersInfo)
-		if (percents) cb({ percentage: percents })
+		if (percents) callback({ percentage: percents })
 	})
 }
 
