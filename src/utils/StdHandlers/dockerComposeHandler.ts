@@ -17,23 +17,18 @@ export interface DockerComposeExecutorCallbackProps {
 	dockerComposePercent?: number
 }
 
-export const dockerComposeHandler: StdHandler<
-	DockerComposeExecutorCallbackProps
-> = (
-	childProcess: ChildProcess,
-	cb: (ecbProps: DockerComposeExecutorCallbackProps) => void,
-) => {
+export const dockerComposeHandler: StdHandler = (childProcess, cb) => {
 	const containersInfo = new Map<string, ContainerBuildStepInfo>()
 
 	console.log('docker_compose !!!')
 	childProcess.on('close', (code, signal) => {
 		// console.log({ exitCode: code, isDone: code === 0 ? true : false })
-		if (code !== null) cb({ dockerComposeExitCode: code })
+		if (code !== null) cb({ exitCode: code })
 	})
 	childProcess.stdout?.on('data', (chunk) => {
 		const stepList = containersBuildStepList(chunk)
 		const percents = getDockerComposeProcessPercents(stepList, containersInfo)
-		if (percents) cb({ dockerComposePercent: percents })
+		if (percents) cb({ percentage: percents })
 	})
 }
 

@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  some-service:
+    container_name: some-service
+    build:
+      context: .
+    # tty: true
+    # stdin_open: true
+    # restart: on-failure
