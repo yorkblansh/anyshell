@@ -12,6 +12,7 @@ import { useBeforeRender } from './hooks/useBeforeRender.js'
 import { useYamlConfig } from './hooks/useYamlConfig.js'
 import { commandExecutor } from './utils/commandExecutor.js'
 import { useProcessResultReset } from './hooks/useProcessResultsReset.js'
+import { logger } from './utils/logger.js'
 
 export const App = () => {
 	useBeforeRender(() => {
@@ -55,13 +56,18 @@ export const App = () => {
 					isFocused={isMenuFocused}
 					onSelect={(item) => {
 						setMenuFocus(false)
-						commandExecutor(item.value!, (callbackProps) => {
-							callbackProps.exitCode === 0
-								? setMenuFocus(true)
-								: setMenuFocus(false)
+						commandExecutor(
+							item.value!,
+							(callbackProps) => {
+								callbackProps.exitCode === 0
+									? setMenuFocus(true)
+									: setMenuFocus(false)
 
-							if (callbackProps.percentage) setPercent(callbackProps.percentage)
-						})
+								if (callbackProps.percentage)
+									setPercent(callbackProps.percentage)
+							},
+							logger,
+						)
 					}}
 					items={commandNames?.map((commandName) => ({
 						label: commandName,

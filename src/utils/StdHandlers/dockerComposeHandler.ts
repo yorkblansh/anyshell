@@ -15,13 +15,18 @@ export interface DockerComposeExecutorCallbackProps {
 	dockerComposePercent?: number
 }
 
-export const dockerComposeHandler: StdHandler = (childProcess, callback) => {
+export const dockerComposeHandler: StdHandler = (
+	childProcess,
+	callback,
+	logger,
+) => {
 	const containersInfo = new Map<string, ContainerBuildStepInfo>()
 
 	childProcess.on('close', (code, signal) => {
 		if (code !== null) callback({ exitCode: code })
 	})
 	childProcess.stdout?.on('data', (chunk) => {
+		logger().log({ chunk })
 		const stepList = containersBuildStepList(chunk)
 		const percents = getDockerComposeProcessPercents(stepList, containersInfo)
 		if (percents) callback({ percentage: percents })

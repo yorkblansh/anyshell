@@ -10,6 +10,7 @@ import { useBeforeRender } from './hooks/useBeforeRender.js';
 import { useYamlConfig } from './hooks/useYamlConfig.js';
 import { commandExecutor } from './utils/commandExecutor.js';
 import { useProcessResultReset } from './hooks/useProcessResultsReset.js';
+import { logger } from './utils/logger.js';
 export const App = () => {
     useBeforeRender(() => {
         shell.exec('clear');
@@ -43,7 +44,7 @@ export const App = () => {
                         : setMenuFocus(false);
                     if (callbackProps.percentage)
                         setPercent(callbackProps.percentage);
-                });
+                }, logger);
             }, items: commandNames?.map((commandName) => ({
                 label: commandName,
                 key: commandName,

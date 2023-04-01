@@ -1,11 +1,12 @@
 import _ from 'lodash';
-export const dockerComposeHandler = (childProcess, callback) => {
+export const dockerComposeHandler = (childProcess, callback, logger) => {
     const containersInfo = new Map();
     childProcess.on('close', (code, signal) => {
         if (code !== null)
             callback({ exitCode: code });
     });
     childProcess.stdout?.on('data', (chunk) => {
+        logger().log({ chunk });
         const stepList = containersBuildStepList(chunk);
         const percents = getDockerComposeProcessPercents(stepList, containersInfo);
         if (percents)
