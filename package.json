@@ -32,6 +32,7 @@
 	"dependencies": {
 		"@types/node": "^18.15.5",
 		"chalk-animation": "^2.0.3",
+		"commander": "^10.0.0",
 		"esbuild": "^0.17.12",
 		"figures": "^5.0.0",
 		"fp-ts": "^2.13.1",
