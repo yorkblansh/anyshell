@@ -8,5 +8,4 @@ const program = new Command()
 program.option('--debug_logs')
 program.parse()
 
-//test comment for test npm tag
 render(<App />)
