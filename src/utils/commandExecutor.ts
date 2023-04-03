@@ -6,11 +6,11 @@ import { StdHandler } from '../interfaces/StdHandler.interface.js'
 import { logger } from './logger.js'
 
 export const commandExecutor = (
-	{ shellCommand, setup }: Command,
+	{ cmd, setup }: Command,
 	callback: (executionCallbackProps: ExecutionCallbackProps) => void,
 	_logger?: typeof logger,
 ) => {
-	const childProcess = shelljs.exec(shellCommand, { async: true, silent: true })
+	const childProcess = shelljs.exec(cmd, { async: true, silent: true })
 	const handlersMap: { [everyName in Setup]: StdHandler } = {
 		docker_compose: dockerComposeHandler,
 		default: () => {},

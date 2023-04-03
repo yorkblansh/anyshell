@@ -18,7 +18,7 @@ export const App = () => {
     const [percent, setPercent] = useState(0);
     const { yamlConfig, isError, isLoading } = useYamlConfig();
     const commandNames = yamlConfig
-        ? Object.keys(yamlConfig.commandList)
+        ? Object.keys(yamlConfig.commands)
         : undefined;
     const [isMenuFocused, setMenuFocus] = useState(true);
     useProcessResultReset(isMenuFocused, setPercent);
@@ -48,7 +48,7 @@ export const App = () => {
             }, items: commandNames?.map((commandName) => ({
                 label: commandName,
                 key: commandName,
-                value: yamlConfig?.commandList[commandName],
+                value: yamlConfig?.commands[commandName],
             })), indicatorComponent: ({ isSelected }) => isSelected ? (React.createElement(Text, { color: "#ffff86" },
                 percent === 100 ? 'done' : null,
                 " ",

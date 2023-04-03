@@ -1,12 +1,10 @@
 export type Setup = 'docker_compose' | 'default'
 
 export interface Command {
-	shellCommand: string
-	silent?: boolean
-	async?: boolean
+	cmd: string
 	setup?: Setup
 }
 
 export interface YamlConfig {
-	commandList: { [commandName: string]: Command }
+	commands: { [commandName: string]: Command }
 }
