@@ -18,18 +18,13 @@ export const App = () => {
 	useBeforeRender(() => {
 		shell.exec('clear')
 	}, [])
-
+	const [isScriptDone, setIsScriptDone] = useState(true)
 	const [percent, setPercent] = useState(0)
+	useProcessResultReset(isScriptDone, setPercent)
 
 	const { yamlConfig, isError, isLoading } = useYamlConfig()
 
-	const commandNames = yamlConfig
-		? Object.keys(yamlConfig.commands)
-		: undefined
-
-	const [isMenuFocused, setMenuFocus] = useState(true)
-
-	useProcessResultReset(isMenuFocused, setPercent)
+	const commandNames = yamlConfig ? Object.keys(yamlConfig.commands) : undefined
 
 	return (
 		<>
@@ -53,15 +48,20 @@ export const App = () => {
 				</Text>
 			) : (
 				<Menu
-					isFocused={isMenuFocused}
+					isFocused={isScriptDone}
 					onSelect={(item) => {
-						setMenuFocus(false)
+						setIsScriptDone(false)
 						commandExecutor(
 							item.value!,
 							(callbackProps) => {
-								callbackProps.exitCode === 0
-									? setMenuFocus(true)
-									: setMenuFocus(false)
+								if (callbackProps.exitCode === 0) {
+									setIsScriptDone(true)
+									setPercent(100)
+								} else {
+									setIsScriptDone(false)
+								}
+
+
 
 								if (callbackProps.percentage)
 									setPercent(callbackProps.percentage)
@@ -77,7 +77,8 @@ export const App = () => {
 					indicatorComponent={({ isSelected }) =>
 						isSelected ? (
 							<Text color="#ffff86">
-								{percent === 100 ? 'done' : null} {figures.pointer}
+								{percent === 100 ? 'done' : null} {figures.pointer}{' '}
+								{isScriptDone ? null : <Spinner type="circle" />}
 							</Text>
 						) : null
 					}
@@ -100,7 +101,7 @@ export const App = () => {
 			<HiddenMenu
 				indicatorComponent={() => null}
 				items={[{ label: '', value: '' }]}
-				isFocused={!isMenuFocused}
+				isFocused={!isScriptDone}
 			/>
 		</>
 	)
