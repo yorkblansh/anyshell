@@ -1,4 +1,4 @@
-export type Setup = 'docker_compose' | 'default'
+export type Setup = 'npm_script' | 'docker_compose' | 'default'
 
 export interface Command {
 	cmd: string
