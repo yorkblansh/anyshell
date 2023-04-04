@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  anyshell-dev:
+    container_name: anyshell-dev
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+    tty: true
+    stdin_open: true
+    restart: on-failure
