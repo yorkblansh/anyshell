@@ -3,7 +3,8 @@ FROM node:18
 RUN apt-get update && apt-get install fish vim curl sudo -y && \
     echo "fish" >>~/.bashrc
 
-RUN echo 'root:12345678' | chpasswd
+RUN echo 'root:123' | chpasswd
+RUN echo 'node:123' | chpasswd
 
 RUN sudo usermod -a -G sudo node
 
